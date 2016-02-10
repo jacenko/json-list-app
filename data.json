@@ -1,0 +1,42 @@
+[
+  {
+    "name" : "Deniss Jacenko",
+    "user" : "deniss",
+    "password" : "jacenko",
+    "list" : [
+      "Technics SL1200", "PS4", "NYC Plane Ticket"
+    ]
+  },
+  {
+    "name" : "Wendy Williams",
+    "user" : "wendy",
+    "password" : "williams",
+    "list" : [
+      "Chi iron", "Massage treatment", "Trip to Bahamas"
+    ]
+  },
+  {
+    "name" : "John Velasquez",
+    "user" : "john",
+    "password" : "markson",
+    "list" : [
+      "Dinner plates", "Coffee maker", "Superbowl tickets", "Heat jersey"
+    ]
+  },
+  {
+    "name" : "Sandy Li",
+    "user" : "sandy",
+    "password" : "johnson",
+    "list" : [
+      "Motorbike", "Giant gummy bear", "Leather jacket", "Dining table", "Dining chairs"
+    ]
+  },
+  {
+    "name" : "Michael Jordan",
+    "user" : "michael",
+    "password" : "jordan",
+    "list" : [
+      "Basketball", "Underwear"
+    ]
+  }
+]
