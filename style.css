@@ -69,6 +69,6 @@ ul {
   height: 30px;
 }
 
-#new-item span:focus {
+span:focus {
     outline: none;
 }
