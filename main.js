@@ -40,6 +40,31 @@ $(function() {
     $(this).css('color', '#CCC');
   });
 
+  $(document).on('focus', '#new-item', function() {
+    $(this).css('color', '#000');
+    if($(this).text() == 'New Item') {
+      $(this).text('');
+    }
+  });
+
+  // TODO: allow items to be added to data;
+  // fix X being lowered when removing previously added text;
+  // allow editing of any line with automatic saving to data;
+  // make sure delete works on added items.
+  $(document).on('blur', '#new-item', function() {
+    if($(this).text() == '') {
+      $(this).css('color', '#CCC');
+      $(this).text('New Item');
+    } else {
+      var newText = $(this).text();
+      $('#list-items li:last-child')
+        .removeAttr('id')
+        .removeAttr('style')
+        .append('<div id="delete">X</div>');
+      $('#list-items').append('<li id="new-item" contenteditable="true">New Item</li>');
+    }
+  });
+
   function deleteItemAtIndex(index) {
     $.each(data, function (key, val) {
       if( currentUser == val.user ) {
@@ -51,7 +76,7 @@ $(function() {
   // Build <ul> to show a user's wishlist
   function displayUserItems(user) {
     // Create list
-    output = '<ul id="list-items">';
+    var output = '<ul id="list-items">';
     $.each(data, function (key, val) {
       if( currentUser == val.user ) {
         for( var i = 0; i < val.list.length; i++) {
@@ -65,6 +90,7 @@ $(function() {
     output += '</ul>';
     $('#list').html(output);
     $('li').append('<div id="delete">X</div>');
+    $('#list-items').append('<li id="new-item" contenteditable="true">New Item</li>');
   }
 
 });
