@@ -61,7 +61,14 @@ ul {
   box-shadow: 0px 10px 10px -5px #888888;
 }
 
-#new-item {
+#new-item span {
   color: #CCC;
   cursor: text;
+  display:inline-block;
+  width: 300px;
+  height: 30px;
+}
+
+#new-item span:focus {
+    outline: none;
 }

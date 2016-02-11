@@ -1,7 +1,8 @@
 $(function() {
 
-  var currentUser;  // Currently selected name in the dropdown
-  var data;         // Data from data.json
+  var currentUser;              // Currently selected name in the dropdown
+  var data;                     // Data from data.json
+  var space = '&#8203;'    // Whitespace for correcting contenteditable
 
   // Get information from data.json
   $.getJSON('data.json', function(JSONData) {
@@ -40,31 +41,54 @@ $(function() {
     $(this).css('color', '#CCC');
   });
 
-  $(document).on('focus', '#new-item', function() {
+  // TODO: allow items to be added to data;
+  // fix X being lowered when removing previously added text;
+  // allow editing of any line with automatic saving to data;
+  // make sure delete works on added items.
+
+  // Select new item's <li> to focus on span
+  $(document).on('click', 'li', function() {
+    $(this).find('span').focus();
+  });
+
+  // Select new item's span
+  $(document).on('focus', '#new-item span', function() {
     $(this).css('color', '#000');
     if($(this).text() == 'New Item') {
       $(this).text('');
     }
   });
 
-  // TODO: allow items to be added to data;
-  // fix X being lowered when removing previously added text;
-  // allow editing of any line with automatic saving to data;
-  // make sure delete works on added items.
-  $(document).on('blur', '#new-item', function() {
+  // Deselect new item
+  $(document).on('blur', '#new-item span', function() {
     if($(this).text() == '') {
       $(this).css('color', '#CCC');
       $(this).text('New Item');
     } else {
       var newText = $(this).text();
       $('#list-items li:last-child')
-        .removeAttr('id')
+        .attr("id","item")
         .removeAttr('style')
-        .append('<div id="delete">X</div>');
-      $('#list-items').append('<li id="new-item" contenteditable="true">New Item</li>');
+        .append('<div id="delete"> \
+                  <i class="fa fa-times"></i> \
+                </div>');
+      $('#list-items')
+        .append('<li id="new-item">' + space + ' \
+                  <span contenteditable="true">New Item</span> \
+                ' + space + '</li>');
     }
   });
 
+  // Deselect existing item
+  $(document).on('blur', '#item span', function() {
+    if($(this).text() == '') {
+      $(this).remove();
+    } else {
+      var newText = $(this).text();
+    }
+  });
+
+  // Remove deleted item from data
   function deleteItemAtIndex(index) {
     $.each(data, function (key, val) {
       if( currentUser == val.user ) {
@@ -80,17 +104,22 @@ $(function() {
     $.each(data, function (key, val) {
       if( currentUser == val.user ) {
         for( var i = 0; i < val.list.length; i++) {
-          output += '<li>';
+          output += '<li id="item">' + space + '<span contenteditable="true">';
           output += val.list[i];
-          output += '</li>';
+          output += '</span>' + space + '</li>';
         }
         return false;
       }
     });
     output += '</ul>';
     $('#list').html(output);
-    $('li').append('<div id="delete">X</div>');
-    $('#list-items').append('<li id="new-item" contenteditable="true">New Item</li>');
+    $('li').append('<div id="delete"> \
+                    <i class="fa fa-times"></i> \
+                  </div>');
+    $('#list-items')
+      .append('<li id="new-item">' + space + ' \
+                <span contenteditable="true">New Item</span> \
+              ' + space + '</li>');
   }
 
 });
