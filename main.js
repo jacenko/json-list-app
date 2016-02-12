@@ -43,13 +43,29 @@ $(function() {
     $(this).css('color', '#CCC');
   });
 
-  // TODO: allow items to be added to data;
-  // allow editing of any line with automatic saving to data;
-  // make sure delete works on added items.
-
-  // Select NEW item's <li> to focus on span
-  $(document).on('click', 'li', function() {
-    $(this).find('span').focus();
+  // Select a <li> to focus on <span>
+  $(document).on('click', 'li', function(e) {
+    // Find whether <li> was clicked in the left or right side
+    var el = this.getElementsByTagName('span')[0];
+    var range = document.createRange();
+    var sel = window.getSelection();
+    // Calculate width and position of element
+    var pWidth = $(this).innerWidth();
+    var pOffset = $(this).offset();
+    var x = e.pageX - pOffset.left;
+    if( pWidth/2 > x ) {
+      // <li> clicked in the left side
+      // Set text cursor at the beginning
+      range.setStart(el, 0);
+    } else {
+      // <li> clicked in the right side
+      // Set text cursor at the end
+      range.setStart(el, 1);
+    }
+    range.collapse(true);
+    sel.removeAllRanges();
+    sel.addRange(range);
+    el.focus();
   });
 
   // Select NEW item's <span>
@@ -82,7 +98,8 @@ $(function() {
   });
 
   // Select EXISTING item's <span>
-  $(document).on('focus', '#item span', function() {
+  $(document).on('click', '#item span', function(event) {
+    event.stopPropagation();
     oldText = $(this).text();
   });
 
@@ -93,6 +110,21 @@ $(function() {
     }
     if($(this).text !== oldText) {
       changeItem($(this).text(), $(this).parent().index());
+    }
+  });
+
+  // Override action of pressing the Enter key when editing
+  // Instead bring focus to the New Item field
+  $(document).on('keyup keypress', 'span', function(e) {
+    var keyCode = e.keyCode || e.which;
+    if (keyCode === 13) {
+      e.preventDefault();
+      console.log(this.id);
+      this.blur();
+      if(this.id = 'new-item') {
+        $('span:last').focus();
+      }
+      return false;
     }
   });
 
