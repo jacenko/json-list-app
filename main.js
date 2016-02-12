@@ -79,7 +79,7 @@ $(function() {
   // Deselect NEW item's <span>
   $(document).on('blur', '#new-item span', function() {
     if($(this).text() == '') {
-      $(this).css('color', '#CCC');
+      $(this).removeAttr('style');
       $(this).text('New Item');
     } else {
       var newText = $(this).text();
@@ -119,11 +119,8 @@ $(function() {
     var keyCode = e.keyCode || e.which;
     if (keyCode === 13) {
       e.preventDefault();
-      console.log(this.id);
       this.blur();
-      if(this.id = 'new-item') {
-        $('span:last').focus();
-      }
+      $('span:last').focus();
       return false;
     }
   });
