@@ -1,4 +1,4 @@
-InCRUDibly Organized List App. 
+JSON file-based CRUD List App. 
 ---
 Manage lists from data.json with a friendly front-end, à la Asana.
 
@@ -7,6 +7,6 @@ Manage lists from data.json with a friendly front-end, à la Asana.
  - JQuery for JSON/UI
  - HTML/CSS/JS
 
-Please don't get any ideas about using JSON to store your customer database. This is an example of how JSON objects can be manipulated by the user.
+This is an example of how JSON objects can be manipulated by the front-end and should not be used for customer DBs or other sensitive information.
 
 ![](http://s9.postimg.org/70da535yn/json_list_app.png)
